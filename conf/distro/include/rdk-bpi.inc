@@ -55,3 +55,5 @@ DISTRO_FEATURES_append = " wps_support"
 
 #Enable resource optimization
 DISTRO_FEATURES_append = " resource_optimization"
+
+DISTRO_FEATURES_append = " CONFIG_IEEE80211BE"

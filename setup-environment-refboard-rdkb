@@ -106,6 +106,18 @@ if [ "X$FEATURE_TYPE" == "XExtender2" ]; then
     cp ${_TOPDIR}/meta-cmf-bananapi/meta-rdk-mtk-bpir4/recipes-ccsp/hal/files/InterfaceMap_em_ext1.json ${_TOPDIR}/meta-cmf-bananapi/meta-rdk-mtk-bpir4/recipes-ccsp/hal/files/InterfaceMap_em_ext.json
     sed -i 's/wifi1.1 info/wifi0.1 info/g' ${_TOPDIR}/meta-cmf-bananapi/meta-rdk-mtk-bpir4/recipes-ccsp/ccsp/files/onewifi_pre_start_em_ext.sh
     sed -i '/wifi1.1 type/s/^/#/' ${_TOPDIR}/meta-cmf-bananapi/meta-rdk-mtk-bpir4/recipes-ccsp/ccsp/files/onewifi_pre_start_em_ext.sh
+if [ ! -e "${_TOPDIR}/meta-rdk-broadband/recipes-ccsp/rdk-wifi-libhostap/hostapd_applied" ]; then
+    for i in {55..88}; do
+        sed -i "${i} s/^/#/" "${_TOPDIR}/meta-rdk-broadband/recipes-ccsp/rdk-wifi-libhostap/rdk-wifi-libhostap.bb"
+    done
+
+sed -i '/^EXTRA_OEMAKE_append =/ i\
+SRC_URI += " \\\
+    file://.config \\\
+    file://libhostap.mk \\\
+"' "${_TOPDIR}/meta-rdk-broadband/recipes-ccsp/rdk-wifi-libhostap/rdk-wifi-libhostap.bb"
+
+    touch "${_TOPDIR}/meta-rdk-broadband/recipes-ccsp/rdk-wifi-libhostap/hostapd_applied"
 fi
 
 if [ "X$BPI_IMG_TYPE" == "Xnand" ]; then
